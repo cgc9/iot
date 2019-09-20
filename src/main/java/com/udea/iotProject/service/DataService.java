@@ -2,12 +2,10 @@ package com.udea.iotProject.service;
 
 import com.udea.iotProject.broker.IotSender;
 import com.udea.iotProject.model.Data;
-import com.udea.iotProject.model.Message;
 import com.udea.iotProject.repository.DataRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,34 +20,33 @@ public class DataService {
     }
     
     
-    /* public void sendMessage(String message) {
-    	
-        StringBuilder sb = new StringBuilder();
-        messages.forEach(message -> sb.append(message.getDeviceName()).append(",").append(message.getPayload()));
+    public void sendMessage(String message) {
+        //StringBuilder sb = new StringBuilder();
+        //messages.forEach(message -> sb.append(message.getDeviceName()).append(",").append(message.getPayload()));
         iotSender.send("prueba", message.getBytes());
     }
-
-    /*public List<Data>findByDates(Timestamp date1, Timestamp date2){
-    
-    	return dataRepository.findByDate(date1, date2);
-     }*/
     
     public List<Data> findAllDevices(){
         return dataRepository.findAll();
     }
     
+    public List<Data> findByDate(LocalDateTime date1, LocalDateTime date2){
+        return dataRepository.findByDateBetween(date1, date2);   
+    }
+    
+    public List<Data> findByDateNoise(LocalDateTime date1, LocalDateTime date2){
+    	int noise=40;
+        return dataRepository.findByDateBetweenAndRuidoGreaterThan(date1, date2, noise);   
+    }
+    
     public void processMessage(String message) {
-    	//PASAR LA FECHA CON EL NIVEL DE RUIDO
     	Data dataModel = new Data();
-    	Date date= new Date();
-    	long time = date.getTime();
-    	Timestamp timeSt = new Timestamp(time);
-		dataModel.setDate(timeSt);
+    	LocalDateTime date= LocalDateTime.now();
+    	dataModel.setDate(date);
 		System.out.println("FECHA:"+dataModel.getDate());
-		Integer ruido =Integer.parseInt(message);
-		dataModel.setRuido(ruido);
-		System.out.println("RUIDO:	"+dataModel.getRuido());
-		//2019-09-01 12:00:19.77
+		Integer noiseLevel =Integer.parseInt(message);
+		dataModel.setRuido(noiseLevel);
+		System.out.println("RUIDO:"+dataModel.getRuido());	
 		dataRepository.save(dataModel);
     }
 }

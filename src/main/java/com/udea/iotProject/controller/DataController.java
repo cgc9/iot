@@ -1,15 +1,14 @@
 package com.udea.iotProject.controller;
 
-
-
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udea.iotProject.model.Data;
@@ -27,7 +26,7 @@ public class DataController {
     @Autowired
     private DataService dataService;
 
-    @ApiOperation(value = "View a list of available devices", response = List.class)
+    @ApiOperation(value = "View a list of noise level", response = List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -41,15 +40,20 @@ public class DataController {
     	
     }
     
-   /* @GetMapping(path="/verDate")
-   		public List<Data> getAllDates() {
-    	
-        return dataService.findByDates();
+   @GetMapping(path="/date")
+   public List<Data> getAllDates(@RequestParam (name="date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date1, @RequestParam (name="date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date2) {	
+       return dataService.findByDate(date1, date2);
     }
-    
-    @PostMapping("/{message}")
-    public void sendMessage(@PathVariable String message) {
+   
+   @GetMapping(path="/")
+   public List<Data> getAllDateNoiseLevel(@RequestParam (name="date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date1, @RequestParam (name="date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date2) {	
+	   return dataService.findByDateNoise(date1, date2);
+    }
+   
+   
+    @PostMapping()
+    public void sendMessage(@RequestParam (name="message") String message) {
        dataService.sendMessage( message);
-   	}*/
+  	}
      
 }

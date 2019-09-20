@@ -2,20 +2,22 @@ package com.udea.iotProject.model;
 
 
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity // This tells Hibernate to make a table out of this class
+@Table(name = "data")
 public class Data {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)  
     private Integer id;
     
-    private  Timestamp date;
+    private  LocalDateTime date;
 	
     private Integer ruido;
 
@@ -27,11 +29,11 @@ public class Data {
 		this.id = id;
 	}
 
-	public Timestamp getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Timestamp date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
@@ -42,10 +44,6 @@ public class Data {
 	public void setRuido(Integer ruido) {
 		this.ruido = ruido;
 	}
-   
-  
-	
-    
-    
+      
 }
 
