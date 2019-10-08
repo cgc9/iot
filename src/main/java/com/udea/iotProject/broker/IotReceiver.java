@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
 
 import com.udea.iotProject.service.DataService;
 
-@RabbitListener(queues = "iotSound")
+@RabbitListener(queues = {"iotSound","iotCritic"})
 @Component
 public class IotReceiver {
  

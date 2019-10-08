@@ -21,9 +21,7 @@ public class DataService {
     
     
     public void sendMessage(String message) {
-        //StringBuilder sb = new StringBuilder();
-        //messages.forEach(message -> sb.append(message.getDeviceName()).append(",").append(message.getPayload()));
-        iotSender.send("prueba", message.getBytes());
+        iotSender.send("iot", message.getBytes());
     }
     
     public List<Data> findAllDevices(){

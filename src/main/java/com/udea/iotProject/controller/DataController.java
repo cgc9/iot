@@ -44,8 +44,8 @@ public class DataController {
    public List<Data> getAllDates(@RequestParam (name="date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date1, @RequestParam (name="date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date2) {	
        return dataService.findByDate(date1, date2);
     }
-   
-   @GetMapping(path="/")
+   	
+   @GetMapping(path="/dateRuido")
    public List<Data> getAllDateNoiseLevel(@RequestParam (name="date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date1, @RequestParam (name="date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date2) {	
 	   return dataService.findByDateNoise(date1, date2);
     }
