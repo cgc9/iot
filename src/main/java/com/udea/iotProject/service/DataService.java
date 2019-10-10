@@ -33,7 +33,7 @@ public class DataService {
     }
     
     public List<Data> findByDateNoise(LocalDateTime date1, LocalDateTime date2){
-    	int noise=40;
+    	int noise=1000;
         return dataRepository.findByDateBetweenAndRuidoGreaterThan(date1, date2, noise);   
     }
     

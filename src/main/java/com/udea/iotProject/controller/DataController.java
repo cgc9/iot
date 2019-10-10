@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.udea.iotProject.model.Data;
 import com.udea.iotProject.service.DataService;
 
@@ -18,9 +20,12 @@ import com.udea.iotProject.service.DataService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.web.bind.annotation.CrossOrigin;
 	
+
 @RestController
 @RequestMapping("/iot")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class DataController {
 
     @Autowired
