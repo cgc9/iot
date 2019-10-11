@@ -55,6 +55,11 @@ public class DataController {
 	   return dataService.findByDateNoise(date1, date2);
     }
    
+   @GetMapping(path="/noiseLevel")
+   public List<Data> getAllDateLevel() {	
+	   return dataService.findByLevel();
+    }
+ 
    
     @PostMapping()
     public void sendMessage(@RequestParam (name="message") String message) {

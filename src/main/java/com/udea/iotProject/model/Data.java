@@ -20,6 +20,8 @@ public class Data {
     private  LocalDateTime date;
 	
     private Integer ruido;
+    
+    private String noiseLevel;
 
 	public Integer getId() {
 		return id;
@@ -43,6 +45,14 @@ public class Data {
 
 	public void setRuido(Integer ruido) {
 		this.ruido = ruido;
+	}
+
+	public String getNoiseLevel() {
+		return noiseLevel;
+	}
+
+	public void setNoiseLevel(String noiseLevel) {
+		this.noiseLevel = noiseLevel;
 	}
       
 }

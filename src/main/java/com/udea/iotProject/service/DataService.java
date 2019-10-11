@@ -28,6 +28,8 @@ public class DataService {
         return dataRepository.findAll();
     }
     
+    
+    
     public List<Data> findByDate(LocalDateTime date1, LocalDateTime date2){
         return dataRepository.findByDateBetween(date1, date2);   
     }
@@ -37,14 +39,37 @@ public class DataService {
         return dataRepository.findByDateBetweenAndRuidoGreaterThan(date1, date2, noise);   
     }
     
+    public List<Data> findByLevel(){
+    	String lev="c";
+        return dataRepository.findByNoiseLevel(lev);   
+    }
+    
+   
     public void processMessage(String message) {
+    	
+    	if(message.startsWith("c")) {
+    		String[] parts = message.split("c");
+    		Data dataModel = new Data();
+        	LocalDateTime date= LocalDateTime.now();
+        	dataModel.setDate(date);
+    		System.out.println("FECHA:"+dataModel.getDate());
+    		Integer noiseLevel =Integer.parseInt(parts[1]);
+    		dataModel.setRuido(noiseLevel);
+    		dataModel.setNoiseLevel("c");
+    		System.out.println("RUIDO:"+dataModel.getRuido());	
+    		dataRepository.save(dataModel);
+    		
+    	}else {
+    	
     	Data dataModel = new Data();
     	LocalDateTime date= LocalDateTime.now();
     	dataModel.setDate(date);
 		System.out.println("FECHA:"+dataModel.getDate());
 		Integer noiseLevel =Integer.parseInt(message);
 		dataModel.setRuido(noiseLevel);
+		dataModel.setNoiseLevel("");
 		System.out.println("RUIDO:"+dataModel.getRuido());	
 		dataRepository.save(dataModel);
+		}
     }
 }
