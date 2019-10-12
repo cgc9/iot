@@ -19,9 +19,9 @@ public class Data {
     
     private  LocalDateTime date;
 	
-    private Integer ruido;
+    private Integer noiseLevel;
     
-    private String noiseLevel;
+    private String noiseSignal;
 
 	public Integer getId() {
 		return id;
@@ -39,20 +39,20 @@ public class Data {
 		this.date = date;
 	}
 
-	public Integer getRuido() {
-		return ruido;
-	}
-
-	public void setRuido(Integer ruido) {
-		this.ruido = ruido;
-	}
-
-	public String getNoiseLevel() {
+	public Integer getNoiseLevel() {
 		return noiseLevel;
 	}
 
-	public void setNoiseLevel(String noiseLevel) {
-		this.noiseLevel = noiseLevel;
+	public void setNoiseLevel(Integer noiseLevel) {
+		this.noiseLevel = noiseLevel;					
+	}
+
+	public String getNoiseSignal() {
+		return noiseSignal;
+	}
+
+	public void setNoiseSignal(String noiseSignal) {
+		this.noiseSignal = noiseSignal;
 	}
       
 }

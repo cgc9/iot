@@ -44,7 +44,7 @@ public class IotReceiver {
 	public DataService dataService;
     @RabbitHandler
     public void receiveMessage(byte[] message) {
-         System.out.println("Nivel de ruido: " +new String(message));
+         //System.out.println("Nivel de ruido: " +new String(message));
          dataService.processMessage(new String(message));
     }
 }

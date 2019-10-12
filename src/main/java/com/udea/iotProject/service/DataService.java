@@ -6,6 +6,7 @@ import com.udea.iotProject.repository.DataRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -29,19 +30,24 @@ public class DataService {
     }
     
     
-    
-    public List<Data> findByDate(LocalDateTime date1, LocalDateTime date2){
+    public List<Data> findByDate(String dateIn, String dateE){
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    	LocalDateTime date1 = LocalDateTime.parse(dateIn, formatter);
+    	LocalDateTime date2 = LocalDateTime.parse(dateE, formatter);
         return dataRepository.findByDateBetween(date1, date2);   
     }
     
-    public List<Data> findByDateNoise(LocalDateTime date1, LocalDateTime date2){
+    public List<Data> findByDateNoise(String dateIn, String dateE){
     	int noise=1000;
-        return dataRepository.findByDateBetweenAndRuidoGreaterThan(date1, date2, noise);   
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    	LocalDateTime date1 = LocalDateTime.parse(dateIn, formatter);
+    	LocalDateTime date2 = LocalDateTime.parse(dateE, formatter);
+        return dataRepository.findByDateBetweenAndNoiseLevelGreaterThan(date1, date2, noise);   
     }
     
     public List<Data> findByLevel(){
     	String lev="c";
-        return dataRepository.findByNoiseLevel(lev);   
+        return dataRepository.findByNoiseSignal(lev);   
     }
     
    
@@ -54,9 +60,10 @@ public class DataService {
         	dataModel.setDate(date);
     		System.out.println("FECHA:"+dataModel.getDate());
     		Integer noiseLevel =Integer.parseInt(parts[1]);
-    		dataModel.setRuido(noiseLevel);
-    		dataModel.setNoiseLevel("c");
-    		System.out.println("RUIDO:"+dataModel.getRuido());	
+    		dataModel.setNoiseLevel(noiseLevel);
+    		dataModel.setNoiseSignal("c");
+    		System.out.println("RUIDO:"+dataModel.getNoiseLevel()+"\n");	
+    		//System.out.println("\n");
     		dataRepository.save(dataModel);
     		
     	}else {
@@ -66,9 +73,10 @@ public class DataService {
     	dataModel.setDate(date);
 		System.out.println("FECHA:"+dataModel.getDate());
 		Integer noiseLevel =Integer.parseInt(message);
-		dataModel.setRuido(noiseLevel);
-		dataModel.setNoiseLevel("");
-		System.out.println("RUIDO:"+dataModel.getRuido());	
+		dataModel.setNoiseLevel(noiseLevel);
+		dataModel.setNoiseSignal("");
+		System.out.println("RUIDO:"+dataModel.getNoiseLevel()+"\n");
+		//System.out.println("\n");
 		dataRepository.save(dataModel);
 		}
     }

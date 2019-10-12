@@ -10,10 +10,10 @@ import com.udea.iotProject.model.Data;
 
 public interface DataRepository extends JpaRepository<Data,Integer> {
 	
-	 List<Data>findByDateBetweenAndRuidoGreaterThan(LocalDateTime date1, LocalDateTime date2, int noiseL);
+	 List<Data>findByDateBetweenAndNoiseLevelGreaterThan(LocalDateTime date1, LocalDateTime date2, int noiseL);
 	 
 	 List<Data>findByDateBetween(LocalDateTime date1, LocalDateTime date2);
 	 
-	 List<Data>findByNoiseLevel(String level);
+	 List<Data>findByNoiseSignal(String level);
 	
 }
